@@ -1,29 +1,42 @@
 let TEAM = new Array()
+let LOCATIONS = new Array()
+let CALENDAR = new Array()
 const form = document.getElementById('Team-form')
 const teamPlayer = document.getElementById('teamPlayer')
 const role = document.getElementById('role')
-const jobLocation = document.getElementById('jobLocation')
+const date = document.getElementById('date')
 const color = document.getElementById('color')
 
 const month = document.getElementById('month')
 const year = 2024
 
 document.addEventListener("DOMContentLoaded", function(event) {
-    const monthInfo = getMonthInfo(new Date())
-    printTable(monthInfo)
+    const january = new Date('1/1/2024')
+   handleMonth()
+   
 })
 
 form.addEventListener('submit', (e) =>{
-    const monthNo = month.value
-    const member = new Team_Member()
-    member.name = teamPlayer.value.trim()
-    member.jobLocation = jobLocation.value
-    member.role = role.value
-    member.color = color.value
-    member.holidays(monthNo, year)
+    e.preventDefault();
+
+    if(!LOCATIONS.includes(jobLocation.value))
+        LOCATIONS.push(jobLocation.value)
+
+    let member = new Team_Member({
+            name: teamPlayer.value.trim(),
+            jobLocation: jobLocation.value,
+            role: role.value,
+            color: color.value
+        })
 
     TEAM.push(member)
 
+    // setTimeout(function () {
+    //     // Make the square visible and scale it up
+    //     cuadrito.style.opacity = '1';
+    //     cuadrito.style.transform = 'scale(1)';
+    //   }, 1000);
+    // });
 })
 
 function printTable(monthInfo){
@@ -31,6 +44,10 @@ function printTable(monthInfo){
     let content = '<tr>'
         for (let i = 0; i < monthInfo.monthDates.length; i++) {
             const day = monthInfo.monthDates[i]
+            let holiday = undefined
+           if(CALENDAR.length > 0){
+                 holiday = CALENDAR.find(h => h.toDateString() === day.toDateString())
+           }
             if(day.getDay() == 0){//Sunday
                 content +='<tr>'
             }
@@ -40,10 +57,13 @@ function printTable(monthInfo){
                     content += '<td></td>'
                 }
             }
-                content += `<td>
-                                <label class="dayNo">${day.getDate()}</label>
-                            </td>`
-                            // <div class="holiday green"><label>Holiday: New Year</label></div>
+                content += `<td id="${day.toDateString().replaceAll(' ','')}">
+                                <label class="dayNo">${day.getDate()}</label>`
+                if(holiday != undefined){
+                    content += `<div class="holiday"><label>${holiday.description}</label></div>`
+                }
+                content += `</td>`
+                           
             
                 //last day
                 if(day == monthInfo.monthDates[monthInfo.monthDates.length-1]){
@@ -61,7 +81,25 @@ function printTable(monthInfo){
         }
     
     tbody.append(content);
+    
+}
 
+async function getHolidays(month, year){
+    try {
+        const url = `https://calendarific.com/api/v2/holidays?&api_key=${API_KEY}&country=US&year=${year}&month=${month}&type=national`
+        const response = await fetch(url)
+        const result = await response.json()
+        result.response.holidays.forEach(holiday => {
+            const _date =  new Date(`${holiday.date.datetime.month}-${holiday.date.datetime.day}-${holiday.date.datetime.year}`)
+            CALENDAR.push({
+                date: _date,
+                description: holiday.name
+            })
+            $(`#${_date.toDateString().replaceAll(' ','')}`).append( `<div class="holiday"><label>${holiday.name}</label></div>`)
+        })
+    } catch (error) {
+        console.log(`getHolidays ${error}`)
+    }
 }
 
 function getMonthInfo(date) {
@@ -91,9 +129,10 @@ function getMonthInfo(date) {
       numberOfWeeks,
     };
   }
-
-// const handleMonth = (date) => {
-// }
-// month.addEventListener('change', () => handleMonth(this.value))
-
+ const handleMonth = () => {
+    const monthInfo = getMonthInfo(new Date(`${month.value}-1-${year}`))
+    printTable(monthInfo)
+    getHolidays(month.value, year)
+ }
+ $('#month').on('change', () => handleMonth())
 

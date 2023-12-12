@@ -31,6 +31,11 @@
                   <small class="error" aria-live="polite"></small>
                 </div>
                 <div class="form-group">
+                  <label for="date">Date</label>
+                  <input type="date" id="date" name="date">
+                  <small class="error" aria-live="polite"></small>
+                </div>
+                <div class="form-group">
                   <label for="role">Role</label>
                   <select class="form-control" name="kind" id="role">
                     <option value="choose" selected="selected" disabled>
@@ -44,28 +49,13 @@
                   <small class="error" aria-live="polite"></small>
                 </div>
                 <div class="form-group">
-                    <label for="jobLocation">Job Location</label>
-                    <select class="form-control" name="kind" id="jobLocation">
-                      <option value="choose" selected="selected" disabled>
-                        Choose one
-                      </option>
-                      <option value="US">US</option>
-                      <option value="CA">Canada</option>
-                      <option value="MX">Mexico</option>
-                      <option value="IN">India</option>
-                      <option value="EN">England</option>
-                      <option value="IR">Ireland</option>
-                    </select>
-                    <small class="error" aria-live="polite"></small>
-                </div>
-                <div class="form-group">
                   <label for="color">Choose color</label>
                   <input type="color" id="color" name="color" value="#ff0000">
                   <small class="error" aria-live="polite"></small>
                 </div>
         
                 <div class="form-group">
-                  <input class="btn btn-primary" type="submit" value="Sign up" />
+                  <input class="btn btn-primary" type="submit" value="Add" />
                 </div>
               </form>
         </aside>
@@ -73,11 +63,8 @@
           <h2>Calendar</h2>
           <div class="form-group">
             <label for="kind">Month</label>
-            <select class="form-control" name="kind" id="month">
-              <option value="choose" selected="selected" disabled>
-                Choose one
-              </option>
-              <option value="1">January</option>
+            <select class="form-control" name="kind" id="month" >
+              <option value="1" selected="selected">January</option>
               <option value="2">February</option>
               <option value="3">March</option>
               <option value="4">April</option>
