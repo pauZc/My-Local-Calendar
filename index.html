@@ -10,22 +10,21 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
     crossorigin="anonymous"
 />
-    <title>Project Calendar</title>
+    <title>Calendar</title>
 </head>
 <body>
     <header>
-        <h1>Project</h1>
+        <h1>Calendar</h1>
     </header>
     <div class="row">
-        <aside>
-            <form id="Team-form" action="">
+            <form id="Form" action="">
                 <div class="form-group">
-                  <label for="teamPlayer">Team Member</label>
+                  <label for="activity">Activity</label>
                   <input
-                    id="teamPlayer"
+                    id="activity"
                     class="form-control validate-input"
                     type="text"
-                    name="teamPlayer"
+                    name="activity"
                     required
                   />
                   <small class="error" aria-live="polite"></small>
@@ -35,50 +34,19 @@
                   <input type="date" id="date" name="date">
                   <small class="error" aria-live="polite"></small>
                 </div>
-                <div class="form-group">
-                  <label for="role">Role</label>
-                  <select class="form-control" name="kind" id="role">
-                    <option value="choose" selected="selected" disabled>
-                      Choose one
-                    </option>
-                    <option value="developer">Developer</option>
-                    <option value="tester">Tester</option>
-                    <option value="ba">Business Analyst</option>
-                    <option value="admin">Project Manager</option>
-                  </select>
-                  <small class="error" aria-live="polite"></small>
-                </div>
+               
                 <div class="form-group">
                   <label for="color">Choose color</label>
                   <input type="color" id="color" name="color" value="#ff0000">
                   <small class="error" aria-live="polite"></small>
                 </div>
         
-                <div class="form-group">
+                <div class="form-group row">
                   <input class="btn btn-primary" type="submit" value="Add" />
                 </div>
               </form>
-        </aside>
-        <article>
-          <h2>Calendar</h2>
-          <div class="form-group">
-            <label for="kind">Month</label>
-            <select class="form-control" name="kind" id="month" >
-              <option value="1" selected="selected">January</option>
-              <option value="2">February</option>
-              <option value="3">March</option>
-              <option value="4">April</option>
-              <option value="5">May</option>
-              <option value="6">June</option>
-              <option value="7">July</option>
-              <option value="8">August</option>
-              <option value="9">September</option>
-              <option value="10">October</option>
-              <option value="11">November</option>
-              <option value="12">December</option>
-            </select>
-            <small class="error" aria-live="polite"></small>
-          </div>
+   </div>
+   <div class="row">
             <table>
                <thead>
                     <tr>
@@ -95,14 +63,13 @@
                     
                </tbody>
             </table>
-        </article>
     </div>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
     <script src="api-key.js"></script>
-    <script src="teammember.js"></script>
+    <script src="Activity.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

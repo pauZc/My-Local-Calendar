@@ -1,43 +1,50 @@
-let TEAM = new Array()
+let Activities = new Array()
 let LOCATIONS = new Array()
 let CALENDAR = new Array()
-const form = document.getElementById('Team-form')
-const teamPlayer = document.getElementById('teamPlayer')
-const role = document.getElementById('role')
+const form = document.getElementById('Form')
+const activity = document.getElementById('activity')
 const date = document.getElementById('date')
 const color = document.getElementById('color')
 
-const month = document.getElementById('month')
-const year = 2024
-
 document.addEventListener("DOMContentLoaded", function(event) {
     const january = new Date('1/1/2024')
-   handleMonth()
-   
+   handleMonth(january)
+   let activities = localStorage.getItem('activities');
+   activities = JSON.parse(activities)
+    if(activities!=null && activities!=undefined){
+        activities.forEach(activity => {
+            activity.date = new Date(activity.date)
+            DisplayActivity(activity)
+        });
+    }
 })
 
 form.addEventListener('submit', (e) =>{
     e.preventDefault();
-
-    if(!LOCATIONS.includes(jobLocation.value))
-        LOCATIONS.push(jobLocation.value)
-
-    let member = new Team_Member({
-            name: teamPlayer.value.trim(),
-            jobLocation: jobLocation.value,
-            role: role.value,
+    let newactivity = new Activity({
+            name: activity.value,
+            date: new Date(date.valueAsDate),
             color: color.value
         })
 
-    TEAM.push(member)
-
-    // setTimeout(function () {
-    //     // Make the square visible and scale it up
-    //     cuadrito.style.opacity = '1';
-    //     cuadrito.style.transform = 'scale(1)';
-    //   }, 1000);
-    // });
+    Activities.push(newactivity)
+    localStorage.setItem('activities', JSON.stringify(Activities))
+    DisplayActivity(newactivity)
 })
+
+function DisplayActivity(activity){
+    const activityId = activity.date.toDateString().replaceAll(' ','')
+    $(`#${activityId}`).append(`<div id='${activity.name}-${activityId}' class='animated-square'>
+                                    <label>${activity.name}</label>
+                                </div>`)
+    const cuadrito = document.getElementById(`${activity.name}-${activityId}`)
+    setTimeout(function () {
+        cuadrito.style.background = activity.color
+        cuadrito.style.opacity = '1';
+        cuadrito.style.transform = 'scale(1)';
+      }, 1000);
+ 
+  }
 
 function printTable(monthInfo){
     const tbody = $('tbody')
@@ -129,10 +136,10 @@ function getMonthInfo(date) {
       numberOfWeeks,
     };
   }
- const handleMonth = () => {
-    const monthInfo = getMonthInfo(new Date(`${month.value}-1-${year}`))
+ const handleMonth = (date) => {
+    const monthInfo = getMonthInfo(date)
     printTable(monthInfo)
-    getHolidays(month.value, year)
+    const month = date.getMonth()+1
+    getHolidays(month, 2024)
  }
- $('#month').on('change', () => handleMonth())
 
