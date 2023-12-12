@@ -17,9 +17,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
             DisplayActivity(activity)
         });
     }
-    Activities = _activities
+    ACTIVITIES = _activities
 })
-
+date.addEventListener('change', ()=>{
+    const selectedDate = date.valueAsDate
+    const duedate = new Date('1-31-2024')
+    if(!compareDates(new Date(selectedDate), duedate))
+    {
+        date.value =''
+        alert('Please select a date related of January')
+    }
+})
 form.addEventListener('submit', (e) =>{
     e.preventDefault();
     let newactivity = new Activity({
@@ -144,3 +152,12 @@ function getMonthInfo(date) {
     getHolidays(month, 2024)
  }
 
+const compareDates = (date, duedate) => {
+    if (date > duedate) {
+    return false
+    } else if (date1 < date2) {
+    return true
+    } else {
+    return false
+    }
+}

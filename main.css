@@ -18,7 +18,7 @@ form{
     display: inline-flex;
 }
 .row{
-    width: 80% ;
+    width: 95% ;
     display: inline-flex;
     margin: 1em 2em !important;
 }
@@ -51,11 +51,19 @@ form{
     font-style: italic;
     border-radius: 5%;
     color: white;
+    font-size: 12px;
   }
   input[type="date"]{
     width: 100%;
     border: 1px solid #ccc;
     padding: 4px 2px;
+    border-radius: 5%;
+  }
+  input[type="color"]{
+    border-radius: 60%;
+    height: 40px;
+    border: none;
+    width: 40px;
   }
   .form-group{
     width: 20%;
