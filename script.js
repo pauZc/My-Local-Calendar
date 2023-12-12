@@ -128,9 +128,6 @@ function getMonthInfo(date) {
     // Get the last day of the month
     const lastDayOfMonth = new Date(year, month + 1, 0);
   
-    // Calculate the number of weeks in the month
-    const numberOfWeeks = Math.ceil((lastDayOfMonth.getDate() + firstDayOfMonth.getDay()) / 7);
-  
     // Create an array to store the dates of the month
     const monthDates = [];
   
@@ -141,8 +138,7 @@ function getMonthInfo(date) {
     }
   
     return {
-      monthDates,
-      numberOfWeeks,
+      monthDates
     };
   }
  const handleMonth = (date) => {
