@@ -1,4 +1,4 @@
-let Activities = new Array()
+let ACTIVITIES = new Array()
 let LOCATIONS = new Array()
 let CALENDAR = new Array()
 const form = document.getElementById('Form')
@@ -7,16 +7,17 @@ const date = document.getElementById('date')
 const color = document.getElementById('color')
 
 document.addEventListener("DOMContentLoaded", function(event) {
-    const january = new Date('1/1/2024')
-   handleMonth(january)
-   let activities = localStorage.getItem('activities');
-   activities = JSON.parse(activities)
-    if(activities!=null && activities!=undefined){
-        activities.forEach(activity => {
+    const _january = new Date('1/1/2024')
+   handleMonth(_january)
+   let _activities = localStorage.getItem('activities');
+   _activities = JSON.parse(_activities)
+    if(_activities!=null && _activities!=undefined){
+        _activities.forEach(activity => {
             activity.date = new Date(activity.date)
             DisplayActivity(activity)
         });
     }
+    Activities = _activities
 })
 
 form.addEventListener('submit', (e) =>{
@@ -27,8 +28,8 @@ form.addEventListener('submit', (e) =>{
             color: color.value
         })
 
-    Activities.push(newactivity)
-    localStorage.setItem('activities', JSON.stringify(Activities))
+    ACTIVITIES.push(newactivity)
+    localStorage.setItem('activities', JSON.stringify(ACTIVITIES))
     DisplayActivity(newactivity)
 })
 
@@ -42,7 +43,7 @@ function DisplayActivity(activity){
         cuadrito.style.background = activity.color
         cuadrito.style.opacity = '1';
         cuadrito.style.transform = 'scale(1)';
-      }, 1000);
+      }, 700);
  
   }
 
