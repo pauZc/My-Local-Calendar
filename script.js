@@ -43,10 +43,12 @@ form.addEventListener('submit', (e) =>{
 
 function DisplayActivity(activity){
     const activityId = activity.date.toDateString().replaceAll(' ','')
-    $(`#${activityId}`).append(`<div id='${activity.name}-${activityId}' class='animated-square'>
+    let name = activity.name.replaceAll(' ','')
+    name = name.replace(/[^a-zA-Z ]/g, "")
+    $(`#${activityId}`).append(`<div id='${name}-${activityId}' class='animated-square'>
                                     <label>${activity.name}</label>
                                 </div>`)
-    const cuadrito = document.getElementById(`${activity.name}-${activityId}`)
+    const cuadrito = document.getElementById(`${name}-${activityId}`)
     setTimeout(function () {
         cuadrito.style.background = activity.color
         cuadrito.style.opacity = '1';
