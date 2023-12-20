@@ -17,7 +17,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             DisplayActivity(activity)
         });
     }
-    ACTIVITIES = _activities
+    if(_activities === null) 
+        ACTIVITIES = new Array()
+    else
+        ACTIVITIES = _activities
 })
 date.addEventListener('change', ()=>{
     const selectedDate = date.valueAsDate
@@ -48,11 +51,11 @@ function DisplayActivity(activity){
     $(`#${activityId}`).append(`<div id='${name}-${activityId}' class='animated-square'>
                                     <label>${activity.name}</label>
                                 </div>`)
-    const cuadrito = document.getElementById(`${name}-${activityId}`)
+    const _actvity = document.getElementById(`${name}-${activityId}`)
     setTimeout(function () {
-        cuadrito.style.background = activity.color
-        cuadrito.style.opacity = '1';
-        cuadrito.style.transform = 'scale(1)';
+        _actvity.style.background = activity.color
+        _actvity.style.opacity = '1';
+        _actvity.style.transform = 'scale(1)';
       }, 700);
  
   }
